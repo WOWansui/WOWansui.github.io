@@ -10,12 +10,14 @@ const COLLAPSE_BUTTON_WIDTH_FALLBACK = 40;
 button.addEventListener("click", () => {
   hidden.classList.toggle("hidden");
   button.classList.toggle("close");
+  button.setAttribute("aria-expanded", String(!hidden.classList.contains("hidden")));
 });
 
 document.addEventListener("click", (e) => {
   if (!nav.contains(e.target)) {
     hidden.classList.add("hidden");
     button.classList.remove("close");
+    button.setAttribute("aria-expanded", "false");
   }
 });
 
@@ -91,6 +93,7 @@ function updateNav() {
     nav.classList.remove("has-hidden-links");
     hidden.classList.add("hidden");
     button.classList.remove("close");
+    button.setAttribute("aria-expanded", "false");
   }
 }
 

@@ -2,89 +2,96 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>XiangTai Yang - Homepage</title>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
-<!-- MASTHEAD -->
-<div class="masthead">
+<header class="masthead">
   <div class="masthead__inner-wrap">
-    <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
-        <button class="hidden" count="0"><div class="navicon"></div></button>
-        <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg selected persist">
-            <a href="https://wowansui.github.io/">Homepage</a>
-          </li>
-          <li class="masthead__menu-item">
-            <a href="#about-me">About Me</a>
-          </li>
-          <li class="masthead__menu-item">
-            <a href="#news">News</a>
-          </li>
-          <li class="masthead__menu-item">
-            <a href="#publications">Publications</a>
-          </li>
-          <li class="masthead__menu-item">
-            <a href="#experiences">Experiences</a>
-          </li>
-          <li class="masthead__menu-item">
-            <a href="#miscellaneous">Miscellaneous</a>
-          </li>
-          <li class="masthead__menu-item">
-            <a href="#cv">CV</a>
-          </li>
-          <li id="theme-toggle" class="masthead__menu-item persist">
-            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-moon" aria-hidden="true" title="toggle theme"></i></a>
-          </li>
-        </ul>
-        <ul class="hidden-links hidden">
-        </ul>
-      </nav>
-    </div>
+    <nav id="site-nav" class="greedy-nav">
+      <button class="hidden" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="navicon"></span>
+      </button>
+      <ul class="visible-links">
+        <li class="persist"><a href="https://wowansui.github.io/">Homepage</a></li>
+        <li><a href="#about-me">About Me</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#experiences">Experiences</a></li>
+        <li><a href="#miscellaneous">Miscellaneous</a></li>
+        <li><a href="#cv">CV</a></li>
+        <li id="theme-toggle" class="persist">
+          <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-moon" aria-hidden="true" title="toggle theme"></i></a>
+        </li>
+      </ul>
+      <ul class="hidden-links hidden"></ul>
+    </nav>
   </div>
-</div>
+</header>
 
 <div class="container">
 
-  <div class="content-wrapper">
     <!-- SIDEBAR -->
-    <div class="sidebar sticky">
+    <aside class="sidebar">
 
       <div class="author__avatar">
         <img src="assets/img/avatar_transparent.png" alt="Xiang Tai Yang">
-        <!-- <img src="assets/img/avatar.jpg" alt="Xiang Tai Yang"> -->
       </div>
 
       <div class="author__content">
-        <h3 class="author__name">杨享泰</h3>
+        <h3 class="author__name">XiangTai Yang</h3>
+        <p class="author__chinese-name">杨享泰</p>
+        <p class="author__nickname">WOWansui</p>
         <p class="author__bio">
           Undergraduate · Class of 2027
         </p>
       </div>
 
-      <div class="author__urls-wrapper">
-        <ul class="author__urls">
-          <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Xi'an, China</li>
-          <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Xi'an Jiaotong University</li>
-          <li><a href="mailto:wowansui@outlook.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
-          <li><a href="https://orcid.org/0009-0006-3066-7553" target="_blank" rel="noopener noreferrer"><i class="ai ai-orcid ai-fw icon-pad-right"></i>ORCID</a></li>
-          <li><a href="https://github.com/WOWansui" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="ai ai-google-scholar ai-fw icon-pad-right"></i>Google Scholar</a></li>
-        </ul>
-      </div>
+      <ul class="author__urls">
+        <li><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Xi'an, China</li>
+        <li><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Xi'an Jiaotong University</li>
+        <li><a href="mailto:wowansui@outlook.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+        <li><a href="https://orcid.org/0009-0006-3066-7553" target="_blank" rel="noopener noreferrer"><i class="ai ai-orcid icon-pad-right"></i>ORCID</a></li>
+        <li><a href="https://github.com/WOWansui" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+        <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="ai ai-google-scholar icon-pad-right"></i>Google Scholar</a></li>
+      </ul>
 
-    </div>
+    </aside>
 
     <!-- MAIN -->
-    <div class="main">
+    <main class="main">
 
     <div id="about-me" class="section">
       <h2 class="section-title">About Me</h2>
       <div class="card">
-        Undergraduate student in Computer Science, focusing on machine learning and computer vision.
+        <p>
+          Hi! I am XiangTai Yang, a second-year undergraduate student at 
+          <a href="https://www.xjtu.edu.cn/">Xi'an Jiaotong University</a>, 
+          working on <strong>computer vision</strong> and <strong>machine learning</strong>.
+        </p>
+
+        <p>
+          My research interests lie in <strong>multimodal 3D vision</strong> and 
+          <strong>cross-modal learning</strong>, with a particular focus on aligning images and point clouds. 
+          More broadly, I am interested in developing models that <strong>generalize across diverse scenarios</strong> 
+          without relying on strong, task-specific inductive biases explicitly encoded in their design. 
+          I am particularly drawn to <strong>simple, unified, and end-to-end architectures</strong>, 
+          where <strong>structure and representations emerge from data rather than being manually imposed</strong>, 
+          enabling models to capture rich cross-modal relationships beyond what can be easily specified by human intuition.
+        </p>
+
+        <p>
+          Currently, I explore multimodal and cross-modal alignment for 3D vision, 
+          focusing on <strong>robust registration</strong>, <strong>reconstruction</strong>, 
+          and <strong>geometry-aware modeling</strong>, 
+          aiming to enable models to better perceive and reason about the 3D world.
+        </p>
+
+        <p class="text-emphasis">
+          <strong>Actively seeking graduate positions for Fall 2028.</strong> Feel free to reach out.
+        </p>
       </div>
     </div>
 
@@ -123,22 +130,16 @@
       <div class="card">Coming soon...</div>
     </div>
 
-  </div>
-
-  </div>
+    </main>
 
 </div>
 
-<!-- FOOTER -->
-<div class="page__footer">
-  <footer>
-    <div class="footer">
-      © 2026 XiangTai Yang. Powered by GitHub Pages.
-    </div>
-  </footer>
-</div>
+<footer class="page__footer">
+  <div class="footer">
+    © 2026 XiangTai Yang. Powered by GitHub Pages.
+  </div>
+</footer>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="assets/js/greedy-navigation.js"></script>
 <script src="assets/js/theme.js"></script>
 
