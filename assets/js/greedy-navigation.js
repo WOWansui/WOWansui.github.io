@@ -1,65 +1,103 @@
-/*
-* Greedy Navigation
-* http://codepen.io/lukejacksonn/pen/PwmwWV
-*/
+const nav = document.querySelector("#site-nav");
+const visible = nav.querySelector(".visible-links");
+const hidden = nav.querySelector(".hidden-links");
+const button = nav.querySelector("button");
 
-var $nav = $('#site-nav');
-var $btn = $('#site-nav button');
-var $vlinks = $('#site-nav .visible-links');
-var $vlinks_persist_tail = $vlinks.children("*.persist.tail");
-var $hlinks = $('#site-nav .hidden-links');
+const PERSIST_CLASS = "persist";
+const BUFFER = 16; // spacing buffer
+const COLLAPSE_BUTTON_WIDTH_FALLBACK = 40;
 
-var breaks = [];
+button.addEventListener("click", () => {
+  hidden.classList.toggle("hidden");
+  button.classList.toggle("close");
+});
+
+document.addEventListener("click", (e) => {
+  if (!nav.contains(e.target)) {
+    hidden.classList.add("hidden");
+    button.classList.remove("close");
+  }
+});
+
+function restoreAll() {
+  const items = Array.from(hidden.children);
+  items.forEach(item => {
+    const persistTail = visible.querySelector(`.${PERSIST_CLASS}:last-child`);
+    if (persistTail) {
+      visible.insertBefore(item, persistTail);
+    } else {
+      visible.appendChild(item);
+    }
+  });
+}
+
+function getCollapseButtonWidth() {
+  const value = getComputedStyle(nav).getPropertyValue("--nav-control-size").trim();
+  const amount = parseFloat(value);
+
+  if (!Number.isFinite(amount)) {
+    return COLLAPSE_BUTTON_WIDTH_FALLBACK;
+  }
+
+  if (value.endsWith("rem")) {
+    return amount * parseFloat(getComputedStyle(document.documentElement).fontSize);
+  }
+
+  if (value.endsWith("em")) {
+    return amount * parseFloat(getComputedStyle(nav).fontSize);
+  }
+
+  return amount;
+}
+
+function getAvailableWidth() {
+  const navWidth = nav.clientWidth;
+  const persistWidth = Array.from(visible.children)
+    .filter(item => item.classList.contains(PERSIST_CLASS))
+    .reduce((total, item) => total + item.offsetWidth, 0);
+  const buttonWidth = button.offsetWidth || getCollapseButtonWidth();
+
+  return navWidth - persistWidth - buttonWidth - BUFFER;
+}
 
 function updateNav() {
-  var availableSpace = $btn.hasClass('hidden') ? $nav.width() : $nav.width() - $btn.width() - 30;
+  restoreAll();
 
-  if ($vlinks.width() > availableSpace) {
-    while ($vlinks.width() > availableSpace && $vlinks.children("*:not(.persist)").length > 0) {
-      breaks.push($vlinks.width());
-      $vlinks.children("*:not(.persist)").last().prependTo($hlinks);
-      availableSpace = $btn.hasClass("hidden") ? $nav.width() : $nav.width() - $btn.width() - 30;
-      $btn.removeClass("hidden");
-    }
-  } else {
-    while (breaks.length > 0 && availableSpace > breaks[breaks.length - 1]) {
-      if ($vlinks_persist_tail.children().length > 0) {
-        $hlinks.children().first().insertBefore($vlinks_persist_tail);
-      } else {
-        $hlinks.children().first().appendTo($vlinks);
-      }
-      breaks.pop();
+  const items = Array.from(visible.children);
+  const available = getAvailableWidth();
+
+  let used = 0;
+
+  for (let item of items) {
+    const isPersist = item.classList.contains(PERSIST_CLASS);
+    const width = item.offsetWidth;
+
+    if (isPersist) {
+      continue;
     }
 
-    if (breaks.length < 1) {
-      $btn.addClass('hidden');
-      $btn.removeClass('close');
-      $hlinks.addClass('hidden');
+    if (used + width > available) {
+      hidden.appendChild(item);
+    } else {
+      used += width;
     }
   }
 
-  $btn.attr("count", breaks.length);
-
-  var mastheadHeight = $('.masthead').height();
-  $('body').css('padding-top', mastheadHeight + 'px');
-  if ($(".author__urls-wrapper button").is(":visible")) {
-    $(".sidebar").css("padding-top", "");
+  if (hidden.children.length > 0) {
+    button.classList.remove("hidden");
+    nav.classList.add("has-hidden-links");
   } else {
-    $(".sidebar").css("padding-top", mastheadHeight + "px");
+    button.classList.add("hidden");
+    nav.classList.remove("has-hidden-links");
+    hidden.classList.add("hidden");
+    button.classList.remove("close");
   }
 }
 
-$(window).on('resize', function () {
+const observer = new ResizeObserver(() => {
   updateNav();
 });
 
-screen.orientation.addEventListener("change", function () {
-  updateNav();
-});
+observer.observe(nav);
 
-$btn.on('click', function () {
-  $hlinks.toggleClass('hidden');
-  $(this).toggleClass('close');
-});
-
-updateNav();
+window.addEventListener("DOMContentLoaded", updateNav);

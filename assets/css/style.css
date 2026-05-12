@@ -74,9 +74,9 @@
 
   --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-serif: Georgia, "Times New Roman", Times, serif;
-  --font-size-h1: 24px;
-  --font-size-h2: 18px;
-  --font-size-h3: 16px;
+  --font-size-h1: 26px;
+  --font-size-h2: 20px;
+  --font-size-h3: 17px;
   --font-size-body: 16px;
   --font-size-small: 14px;
   --font-size-xs: 12px;
@@ -103,7 +103,7 @@ html[data-theme="dark"] {
   --global-panel-color: #474747;
   --global-card-bg: #3d3d3d;
 
-  --global-text-color: #ffffff;
+  --global-text-color: #e0e0e0;
   --global-text-color-light: #f3f3f3;
   --global-text-color-faint: #9aa0a6;
   --global-text-color-muted: #7a8288;
@@ -127,8 +127,10 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   scroll-padding-top: calc(var(--masthead-height) + 2rem);
+}
 
-  @media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
+  html {
     font-size: 18px;
   }
 }
@@ -137,42 +139,27 @@ body {
   margin: 0;
   background: var(--global-bg-color);
   color: var(--global-text-color);
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-body);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding-top: var(--masthead-height);
-  padding-bottom: 9em;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 1em 0 0.5em;
-  line-height: 1.2;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  font-weight: bold;
 }
 
 h1 {
   margin-top: 0;
-  font-size: 1.444em;
+  font-size: var(--font-size-h1);
 }
 
 h2 {
-  font-size: 1.25em;
-}
+  font-size: var(--font-size-h1);
+  }
 
-h3 {
-  font-size: 1em;
-}
-
-h4, h5, h6 {
-  font-size: 0.75em;
-}
-
-p {
-  margin-bottom: 1.3em;
-}
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-body); }
+h5 { font-size: var(--font-size-small); }
+h6 { font-size: var(--font-size-xs); }
 
 a {
   color: var(--global-link-color);
@@ -249,20 +236,28 @@ img {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0.5em 1em;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: var(--font-family-sans);
 }
 
 .greedy-nav {
+  display: flex;
+  align-items: center;
   position: relative;
-  min-width: 250px;
-  background: var(--global-bg-color);
+  --nav-control-size: 2.5rem;
+  --nav-control-gap: 0.5rem;
 }
 
 .greedy-nav button {
   position: absolute;
-  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--nav-control-size);
+  height: var(--nav-control-size);
   right: 0;
-  padding: 0 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
   border: 0;
   outline: none;
   background-color: transparent;
@@ -319,13 +314,15 @@ img {
 }
 
 .greedy-nav a {
-  display: block;
+  display: flex;
+  align-items: center;
   margin: 0 1rem;
   padding: 0.5rem 0;
+  min-height: var(--nav-control-size);
   color: var(--global-text-color-light);
   text-decoration: none;
   font-size: 1.056rem;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: var(--font-family-sans);
 }
 
 .greedy-nav a:hover {
@@ -333,13 +330,25 @@ img {
 }
 
 .greedy-nav .visible-links {
-  display: table;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.greedy-nav.has-hidden-links .visible-links {
+  padding-right: calc(var(--nav-control-size) + var(--nav-control-gap));
 }
 
 .greedy-nav .visible-links li {
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
   white-space: nowrap;
+  margin-bottom: 0;
 }
 
 .greedy-nav .visible-links li:first-child {
@@ -356,8 +365,12 @@ img {
 }
 
 .greedy-nav .visible-links #theme-toggle a {
-  width: 25px;
+  width: var(--nav-control-size);
+  height: var(--nav-control-size);
+  margin-right: 0;
+  padding: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
   cursor: pointer;
 }
@@ -384,15 +397,12 @@ img {
 
 .greedy-nav .hidden-links {
   position: absolute;
-  top: 100%;
   right: 0;
-  margin-top: 15px;
-  padding: 5px;
-  border: 1px solid var(--global-border-color);
-  border-radius: 4px;
-  background: var(--global-bg-color);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  z-index: 100;
+  top: 100%;
+  background: var(--global-panel-color);
+  list-style: none;
+  padding: 0.5em 0;
+  min-width: 160px;
 }
 
 .greedy-nav .hidden-links a {
@@ -476,8 +486,10 @@ img {
 
 .main {
   margin-left: 0;
+}
 
-  @media screen and (min-width: 1024px) {
+@media screen and (min-width: 1024px) {
+  .main {
     margin-left: calc((var(--max-width) * 2 / 12) + var(--space-xl) + var(--space-lg));
   }
 }
@@ -529,8 +541,10 @@ img {
   overflow-y: visible;
   padding-top: var(--space-xl);
   margin-bottom: 1em;
+}
 
-  @media screen and (min-width: 1024px) {
+@media screen and (min-width: 1024px) {
+  .sidebar {
     position: fixed;
     left: calc(var(--space-lg) * 2);
     top: var(--masthead-height);
@@ -541,8 +555,10 @@ img {
     margin-bottom: 0;
     max-width: var(--max-width);
   }
+}
 
-  @media screen and (min-width: 1280px) {
+@media screen and (min-width: 1280px) {
+  .sidebar {
     left: calc((100% - var(--max-width)) / 2 + var(--space-lg) * 2);
   }
 }
@@ -636,8 +652,8 @@ img {
 }
 
 .section-title {
-  font-size: 1.25em;
-  font-weight: bold;
+  font-size: var(--font-size-h2);
+  font-weight: 600;
   margin-top: 2em;
   margin-bottom: 1em;
   color: var(--global-text-color);
@@ -715,15 +731,16 @@ img {
 .page__footer {
   background-color: var(--global-footer-bg-color);
   color: var(--global-text-color-light);
-  float: left;
   margin-left: 0;
   margin-right: 0;
   width: 100%;
   clear: both;
   margin-top: var(--space-xl);
   border-top: 1px solid var(--global-dark-border-color);
+}
 
-  @media screen and (min-width: 1024px) {
+@media screen and (min-width: 1024px) {
+  .page__footer {
     margin-left: calc((var(--max-width) * 2 / 12) + var(--space-xl) + var(--space-lg));
     width: calc(100% - (var(--max-width) * 2 / 12) - var(--space-xl) - var(--space-lg));
   }
@@ -735,8 +752,10 @@ img {
   margin-top: 0.5em;
   max-width: 100%;
   padding: 0 1em 1em;
+}
 
-  @media screen and (min-width: 1024px) {
+@media screen and (min-width: 1024px) {
+  .page__footer footer {
     max-width: var(--max-width);
     padding: 0 var(--space-lg) 1em;
   }
